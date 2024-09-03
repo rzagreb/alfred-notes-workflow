@@ -1,0 +1,35 @@
+name: Create Alfred Workflow Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+    branches:
+      - release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14'
+
+    - name: Zip and rename workflow
+      run: |
+        cd src
+        zip -r alfred-notes-workflow.zip .
+        cd ..
+        mv alfred-notes-workflow.zip alfred-notes-workflow.alfredworkflow
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: alfred-notes-workflow.alfredworkflow
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
