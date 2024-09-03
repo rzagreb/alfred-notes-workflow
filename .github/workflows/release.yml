@@ -7,10 +7,6 @@ on:
     branches:
       - release
 
-permissions:
-  contents: write  # Allows creating and uploading to releases
-  metadata: read   # Allows reading repository metadata
-
 jobs:
   build:
     runs-on: ubuntu-latest
