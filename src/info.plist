@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>org.rzagreb.notesapp</string>
+	<key>category</key>
+	<string>Productivity</string>
+	<key>connections</key>
+	<dict>
+		<key>872B60D3-61A6-4CBF-B895-A53AB3D3661B</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>2E6DE871-824B-43F7-AD6A-07E569DCACA9</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>E98699BC-11C5-4088-BE11-138EE4AD7962</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>EF0C223B-1800-4B57-AE08-D056C9AF019B</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>EF0C223B-1800-4B57-AE08-D056C9AF019B</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>84D19856-7434-46A3-8C1A-10F869A161ED</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Roman Zagrebnev</string>
+	<key>description</key>
+	<string></string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Notes</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Note added</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>84D19856-7434-46A3-8C1A-10F869A161ED</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>nn</string>
+				<key>subtext</key>
+				<string>&lt;nn&gt;</string>
+				<key>text</key>
+				<string>Add note to Notes.app</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>E98699BC-11C5-4088-BE11-138EE4AD7962</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>function run(argv) {
+    ObjC.import('Cocoa');
+    ObjC.import('Foundation');
+    ObjC.import('stdlib');
+
+    function createNote() {
+        const notesApp = Application('Notes');
+        const defaultAccount = notesApp.defaultAccount();
+
+        const notesFolderName = $.getenv('notes_folder');
+
+        const notesFolder = defaultAccount.folders.whose({ name: notesFolderName })[0];
+        const newNote = notesApp.Note();
+        newNote.body = argv;
+        notesFolder.notes.push(newNote);
+        return argv
+    }
+
+    return createNote();
+}</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>7</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>EF0C223B-1800-4B57-AE08-D056C9AF019B</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>function run(argv) {
+    var noteID = argv[0];
+    var Notes = Application('Notes');
+    var theNote = Notes.notes.whose({ id: noteID })[0];
+    Notes.show(theNote);
+    Notes.activate();
+}</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>7</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>2E6DE871-824B-43F7-AD6A-07E569DCACA9</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>126</integer>
+				<key>keyword</key>
+				<string>n</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>1</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>searching...</string>
+				<key>script</key>
+				<string>function run() {
+    ObjC.import('Cocoa');
+    ObjC.import('Foundation');
+    ObjC.import('stdlib');
+
+    const app = Application('Notes');
+    const query = '{query}'.toLowerCase();
+    const notes = app.notes.whose({ name: { _contains: query } })();
+
+    const TargetFolderName = $.getenv('notes_folder');
+
+    let items = [];
+    for (let i = 0; i &lt; notes.length; i++) {
+        const note = notes[i];
+        const folder_name = note.container().name()
+        if (folder_name !== TargetFolderName) {
+            continue;
+        }
+
+        const title = note.name();
+        const subtitle = note.body().replace(/(&lt;([^&gt;]+)&gt;)/gi, ""); // Removes any HTML tags
+        const arg = note.id(); // Use note id or URL if needed to open it later
+
+        items.push({
+            title: title,
+            subtitle: subtitle,
+            arg: arg,
+            details: JSON.stringify(note),
+        });
+    }
+
+    return JSON.stringify({ items: items });
+}</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>Search notes</string>
+				<key>type</key>
+				<integer>7</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>872B60D3-61A6-4CBF-B895-A53AB3D3661B</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>This Alfred Workflow helps you use the Notes.app more easily. Here's how it works:
+
+- Search Notes: Search through your notes without opening the Notes app. The results appear in a list. Once you find the note you want, you can open it directly from Alfred. 
+
+- Create New Notes: Create a new note right from Alfred. Just type what you want to save, and it will automatically be added to the Notes app.</string>
+	<key>uidata</key>
+	<dict>
+		<key>2E6DE871-824B-43F7-AD6A-07E569DCACA9</key>
+		<dict>
+			<key>xpos</key>
+			<real>200</real>
+			<key>ypos</key>
+			<real>200</real>
+		</dict>
+		<key>84D19856-7434-46A3-8C1A-10F869A161ED</key>
+		<dict>
+			<key>xpos</key>
+			<real>370</real>
+			<key>ypos</key>
+			<real>45</real>
+		</dict>
+		<key>872B60D3-61A6-4CBF-B895-A53AB3D3661B</key>
+		<dict>
+			<key>note</key>
+			<string>Search</string>
+			<key>xpos</key>
+			<real>30</real>
+			<key>ypos</key>
+			<real>200</real>
+		</dict>
+		<key>E98699BC-11C5-4088-BE11-138EE4AD7962</key>
+		<dict>
+			<key>note</key>
+			<string>Create</string>
+			<key>xpos</key>
+			<real>30</real>
+			<key>ypos</key>
+			<real>45</real>
+		</dict>
+		<key>EF0C223B-1800-4B57-AE08-D056C9AF019B</key>
+		<dict>
+			<key>xpos</key>
+			<real>200</real>
+			<key>ypos</key>
+			<real>45</real>
+		</dict>
+	</dict>
+	<key>userconfigurationconfig</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>Notes</string>
+				<key>placeholder</key>
+				<string>Notes</string>
+				<key>required</key>
+				<true/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Folder designated for saving and searching notes.</string>
+			<key>label</key>
+			<string>Folder</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>notes_folder</string>
+		</dict>
+	</array>
+	<key>variablesdontexport</key>
+	<array/>
+	<key>version</key>
+	<string>0.0.1</string>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
