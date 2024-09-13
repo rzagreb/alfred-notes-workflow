@@ -61,6 +61,27 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>{var:add_note}</string>
+				<key>subtext</key>
+				<string></string>
+				<key>text</key>
+				<string>Add note to Notes.app</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>E98699BC-11C5-4088-BE11-138EE4AD7962</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>lastpathcomponent</key>
 				<false/>
 				<key>onlyshowifquerypopulated</key>
@@ -82,35 +103,12 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>keyword</key>
-				<string>nn</string>
-				<key>subtext</key>
-				<string>&lt;nn&gt;</string>
-				<key>text</key>
-				<string>Add note to Notes.app</string>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>E98699BC-11C5-4088-BE11-138EE4AD7962</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
 				<integer>68</integer>
 				<key>script</key>
 				<string>function run(argv) {
-    ObjC.import('Cocoa');
-    ObjC.import('Foundation');
     ObjC.import('stdlib');
 
     function createNote() {
@@ -187,7 +185,7 @@
 				<key>escaping</key>
 				<integer>126</integer>
 				<key>keyword</key>
-				<string>n</string>
+				<string>{var:search_note}</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -200,8 +198,8 @@
 				<string>searching...</string>
 				<key>script</key>
 				<string>function run() {
-    ObjC.import('Cocoa');
-    ObjC.import('Foundation');
+    //ObjC.import('Cocoa');
+    //ObjC.import('Foundation');
     ObjC.import('stdlib');
 
     const app = Application('Notes');
@@ -239,7 +237,7 @@
 				<key>subtext</key>
 				<string></string>
 				<key>title</key>
-				<string>Search notes</string>
+				<string>Search Notes.app</string>
 				<key>type</key>
 				<integer>7</integer>
 				<key>withspace</key>
@@ -324,11 +322,53 @@
 			<key>variable</key>
 			<string>notes_folder</string>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>ns</string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string></string>
+			<key>label</key>
+			<string>Search note in Notes.app</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>search_note</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string></string>
+			<key>label</key>
+			<string>Add new note in Notes.app</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>add_note</string>
+		</dict>
 	</array>
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>0.0.1</string>
+	<string>0.0.2</string>
 	<key>webaddress</key>
 	<string></string>
 </dict>
